@@ -1,45 +1,40 @@
-
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+import pickle
+import pandas as pd
 
 app = Flask(__name__)
 CORS(app)
 
-def analisar_credito(dados):
-    score_credito = dados.get('score_credito')
-    restricao_nome = dados.get('restricao_nome')
-    inadimplencias_3_anos = dados.get('inadimplencias_3_anos')
-    percentual_entrada = dados.get('percentual_entrada')
-    prazo_solicitado_anos = dados.get('prazo_solicitado_anos')
-    renda_mensal = dados.get('renda_mensal')
-    renda_complementar = dados.get('renda_complementar')
-    valor_financiamento = dados.get('valor_financiamento')
+# Carregar modelo treinado
+with open("modelo_credito.pkl", "rb") as f:
+    modelo = pickle.load(f)
 
-    entrada = valor_financiamento * (percentual_entrada / 100)
-    valor_parcela = (valor_financiamento - entrada) / (prazo_solicitado_anos * 12)
-    renda_total = renda_mensal + renda_complementar
+# Função para preparar os dados
+def preparar_dados(dados):
+    df = pd.DataFrame([dados])
 
-    if score_credito < 600:
-        return "Reprovado", "Score de crédito inferior ao mínimo exigido."
-    if restricao_nome == 1:
-        return "Reprovado", "Cliente possui restrições no nome (SPC/Serasa)."
-    if inadimplencias_3_anos > 0:
-        return "Reprovado", "Cliente com histórico recente de inadimplência."
-    if percentual_entrada < 20:
-        return "Reprovado", "Entrada abaixo do mínimo exigido (20%)."
-    if prazo_solicitado_anos > 20:
-        return "Reprovado", "Prazo acima do máximo permitido (20 anos)."
-    if renda_total < 3 * valor_parcela:
-        return "Reprovado", "Renda total inferior a 3x o valor da parcela."
+    # Mapear variáveis categóricas conforme usadas no treino
+    map_estado_civil = {"Solteiro": 2, "Casado": 0, "Divorciado": 1}
+    map_regiao = {"Norte": 3, "Nordeste": 2, "Sul": 4, "Sudeste": 1, "Centro-Oeste": 0}
+    map_tipo_imovel = {"Casa": 0, "Apartamento": 1, "Terreno": 2}
 
-    return "Aprovado", "Cliente atende a todos os critérios de aprovação."
+    df["estado_civil"] = df["estado_civil"].map(map_estado_civil)
+    df["regiao"] = df["regiao"].map(map_regiao)
+    df["tipo_imovel"] = df["tipo_imovel"].map(map_tipo_imovel)
 
-@app.route('/analisar_credito', methods=['POST'])
-def analisar():
+    return df
+
+@app.route("/analisar_credito", methods=["POST"])
+def analisar_credito():
     dados = request.get_json()
-    status, justificativa = analisar_credito(dados)
-    return jsonify({"status": status, "justificativa": justificativa})
+    df = preparar_dados(dados)
+    pred = modelo.predict(df)[0]
+    status = "Aprovado" if pred == 1 else "Reprovado"
+    return jsonify({
+        "status": status,
+        "modelo": True
+    })
 
 if __name__ == "__main__":
     app.run(debug=True)
-

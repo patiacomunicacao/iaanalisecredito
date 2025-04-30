@@ -1,37 +1,55 @@
-# Projeto de Análise de Crédito para Financiamento Direto
 
-## 🎯 Objetivo
-Desenvolver um sistema automatizado de análise de crédito para loteadoras que trabalham com financiamento direto, utilizando Machine Learning para reduzir a inadimplência, agilizar aprovações e aumentar a taxa de conversão de vendas.
+# API de Análise de Crédito (Simples)
 
-## 🧰 Ferramentas Utilizadas
-- Python
-- Google Colab
-- pandas, numpy, scikit-learn
-- matplotlib, seaborn
-- openpyxl
-- GitHub
+Esta é uma API local feita em Flask que simula a aprovação ou reprovação de crédito com base em regras de negócio simples.
 
-## 📁 Estrutura do Projeto
+## Como rodar
+
+1. Abra o terminal e vá até a pasta do projeto:
 ```
-projeto-analise-credito/
-├── README.md
-├── dados/
-│   └── dataset_credito_simulado.xlsx
-├── notebooks/
-│   └── modelo_credito_logistico.ipynb
-├── documentacao/
-│   ├── regras_de_negocio.md
-│   └── wireframe_dashboard_credito.pdf
+cd api_credito_local
 ```
 
-## ▶️ Como Executar
-1. Abra o notebook em `/notebooks/modelo_credito_logistico.ipynb`
-2. Execute célula por célula no Google Colab ou Jupyter
-3. Certifique-se de ter os pacotes: `pandas`, `scikit-learn`, `openpyxl`
+2. Crie e ative um ambiente virtual (opcional, mas recomendado):
+```
+python3 -m venv venv
+source venv/bin/activate
+```
 
-## 📌 Status da Sprint 1
-- [x] Base de dados simulada
-- [x] Protótipo de modelo (AUC: 0.90)
-- [x] Wireframe do dashboard
-- [x] Documentação das regras de negócio
-- [x] Ambiente inicial configurado
+3. Instale as dependências:
+```
+pip install -r requirements.txt
+```
+
+4. Inicie a API:
+```
+python app.py
+```
+
+A API estará disponível em `http://127.0.0.1:5000/analisar_credito`
+
+## Como testar
+
+Você pode usar o Postman ou um script Python para enviar um POST como este:
+
+### Exemplo de corpo JSON:
+```json
+{
+  "score_credito": 750,
+  "restricao_nome": 0,
+  "inadimplencias_3_anos": 0,
+  "percentual_entrada": 25,
+  "prazo_solicitado_anos": 15,
+  "renda_mensal": 7000,
+  "renda_complementar": 1000,
+  "valor_financiamento": 200000
+}
+```
+
+### Exemplo de resposta:
+```json
+{
+  "status": "Aprovado",
+  "justificativa": "Cliente atende a todos os critérios de aprovação."
+}
+```
