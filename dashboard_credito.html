@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard de Análise de Crédito</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        .dashboard {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .aprovado {
+            color: green;
+            font-weight: bold;
+        }
+        .reprovado {
+            color: red;
+            font-weight: bold;
+        }
+        canvas {
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <h1>Dashboard de Análise de Crédito</h1>
+
+        <h2>Resultado da Simulação</h2>
+        <table>
+            <tr>
+                <th>Cliente</th>
+                <th>Idade</th>
+                <th>Renda</th>
+                <th>Score</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td>João</td>
+                <td>35</td>
+                <td>R$ 5.000</td>
+                <td>720</td>
+                <td class="aprovado">Aprovado</td>
+            </tr>
+            <tr>
+                <td>Maria</td>
+                <td>29</td>
+                <td>R$ 3.200</td>
+                <td>580</td>
+                <td class="reprovado">Reprovado</td>
+            </tr>
+            <tr>
+                <td>Pedro</td>
+                <td>42</td>
+                <td>R$ 7.100</td>
+                <td>690</td>
+                <td class="aprovado">Aprovado</td>
+            </tr>
+        </table>
+
+        <canvas id="graficoScore" width="400" height="200"></canvas>
+        <canvas id="graficoStatus" width="400" height="200"></canvas>
+    </div>
+
+    <script>
+        const ctx1 = document.getElementById('graficoScore').getContext('2d');
+        new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: ['João', 'Maria', 'Pedro'],
+                datasets: [{
+                    label: 'Score de Crédito',
+                    data: [720, 580, 690],
+                    backgroundColor: ['#4caf50', '#f44336', '#2196f3']
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+
+        const ctx2 = document.getElementById('graficoStatus').getContext('2d');
+        new Chart(ctx2, {
+            type: 'pie',
+            data: {
+                labels: ['Aprovados', 'Reprovados'],
+                datasets: [{
+                    label: 'Status',
+                    data: [2, 1],
+                    backgroundColor: ['#4caf50', '#f44336']
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+    </script>
+</body>
+</html>
