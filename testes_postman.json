@@ -1,0 +1,102 @@
+[
+    {
+        "name": "Caso 1 - Aprovado",
+        "request": {
+            "idade": 25,
+            "renda": 3000,
+            "tempo_emprego": 2,
+            "score_credito": 650,
+            "inadimplente": 0
+        }
+    },
+    {
+        "name": "Caso 2 - Aprovado",
+        "request": {
+            "idade": 40,
+            "renda": 5000,
+            "tempo_emprego": 10,
+            "score_credito": 780,
+            "inadimplente": 0
+        }
+    },
+    {
+        "name": "Caso 3 - Negado",
+        "request": {
+            "idade": 30,
+            "renda": 2000,
+            "tempo_emprego": 1,
+            "score_credito": 580,
+            "inadimplente": 1
+        }
+    },
+    {
+        "name": "Caso 4 - Aprovado",
+        "request": {
+            "idade": 50,
+            "renda": 7000,
+            "tempo_emprego": 15,
+            "score_credito": 820,
+            "inadimplente": 0
+        }
+    },
+    {
+        "name": "Caso 5 - Negado",
+        "request": {
+            "idade": 22,
+            "renda": 1800,
+            "tempo_emprego": 0.5,
+            "score_credito": 500,
+            "inadimplente": 1
+        }
+    },
+    {
+        "name": "Caso 6 - Aprovado",
+        "request": {
+            "idade": 33,
+            "renda": 4200,
+            "tempo_emprego": 4,
+            "score_credito": 720,
+            "inadimplente": 0
+        }
+    },
+    {
+        "name": "Caso 7 - Negado",
+        "request": {
+            "idade": 28,
+            "renda": 2500,
+            "tempo_emprego": 2,
+            "score_credito": 610,
+            "inadimplente": 1
+        }
+    },
+    {
+        "name": "Caso 8 - Aprovado",
+        "request": {
+            "idade": 45,
+            "renda": 6000,
+            "tempo_emprego": 8,
+            "score_credito": 750,
+            "inadimplente": 0
+        }
+    },
+    {
+        "name": "Caso 9 - Negado",
+        "request": {
+            "idade": 35,
+            "renda": 3500,
+            "tempo_emprego": 3,
+            "score_credito": 680,
+            "inadimplente": 1
+        }
+    },
+    {
+        "name": "Caso 10 - Aprovado",
+        "request": {
+            "idade": 60,
+            "renda": 8000,
+            "tempo_emprego": 20,
+            "score_credito": 790,
+            "inadimplente": 0
+        }
+    }
+]
