@@ -1,0 +1,32 @@
+
+### Teste API - Análise de Crédito (Aprovado)
+
+POST http://127.0.0.1:5000/analisar_credito
+Content-Type: application/json
+
+{
+    "renda_mensal": 8000,
+    "score_credito": 720,
+    "restricoes_spc": 0,
+    "inadimplencia_3anos": 0,
+    "percentual_entrada": 25.0,
+    "prazo_anos": 15,
+    "idade": 35,
+    "regiao": "Sul"
+}
+
+### Teste API - Análise de Crédito (Reprovado)
+
+POST http://127.0.0.1:5000/analisar_credito
+Content-Type: application/json
+
+{
+    "renda_mensal": 2500,
+    "score_credito": 550,
+    "restricoes_spc": 1,
+    "inadimplencia_3anos": 1,
+    "percentual_entrada": 10.0,
+    "prazo_anos": 25,
+    "idade": 22,
+    "regiao": "Nordeste"
+}
